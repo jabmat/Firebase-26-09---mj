@@ -24,6 +24,8 @@ import renderHomePage from '../HomePage/renderHomePage.js';
 
 import { auth } from '../../firebaseConfig.js';
 
+import { signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js';
+
 export default function () {
 	const content = document.querySelector('.content');
 	content.innerHTML = '';
@@ -32,10 +34,36 @@ export default function () {
 	h2.textContent = 'Log in or sign up';
 
 	const pAuth = document.createElement('p');
-	pAuth.textContent = 'Our';
+	pAuth.textContent =
+		'Our authentication mechanism uses Firebase Auth and is 100% secure.';
 
 	const labelLog = document.createElement('label');
 	labelLog.textContent = 'Log in:';
 
 	const loginForm = renderLoginForm();
+
+	const registerButton = document.createElement('button');
+	registerButton.setAttribute('id', 'register-button');
+	registerButton.textContent = 'Register';
+
+	content.appendChild(h2);
+	content.appendChild(pAuth);
+	content.appendChild(labelLog);
+	content.appendChild(loginForm);
+	content.appendChild(registerButton);
+
+	registerButton.addEventListener('click', function (event) {
+		content.innerHTML = '';
+		renderRegisterForm();
+	});
+
+	loginForm.addEventListener('submit', function (event) {
+		event.preventDefault();
+		const email = document.getElementById('input-email-login').value;
+		const pass = document.getElementById('input-password-login').value;
+		signInWithEmailAndPassword(auth, email, pass).then((userCredentials) => {
+			console.log('logged in, user creds:', userCredentials);
+			renderHomePage();
+		});
+	});
 }

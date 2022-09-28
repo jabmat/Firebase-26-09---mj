@@ -68,7 +68,7 @@ export default function () {
 		console.log('pass1:', pass1);
 		console.log('pass2:', pass2);
 
-		if (pass1 === pass2 && pass1.length > 6 && pass2.length > 6) {
+		if (pass1 === pass2) {
 			createUserWithEmailAndPassword(auth, email, pass1)
 				.then((userCredentials) => console.log(userCredentials))
 				.catch((err) => console.log(err));
