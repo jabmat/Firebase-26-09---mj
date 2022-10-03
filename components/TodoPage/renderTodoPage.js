@@ -65,14 +65,88 @@ export default function () {
 				console.log(checked);
 
 				// 2.
-				const foundVal = checked.value;
+				const category = checked.value;
 				// console.log(checkedVal);
 
 				// 3.
-				push(todoRef, { todoText, foundVal })
+				push(todoRef, { todoText, category })
 					.then(() => console.log('pushed the data'))
 					.catch((err) => console.log('failed to push'));
 			});
+		} else {
+			// gdy jest data?
+			// console.log(data);
+
+			// treść zadania
+			// 1. Wyciągnij same obiekty todo z obiektu data (Object.values()) i zapisz do zmiennej todos
+			// 2. Stwórz element <h2>, textContent "Add, remove and edit your todos"
+			// 3. Stwórz zmienną listItems. Wartość zmiennej listItems to wywołanie metody .map((el, i) => { ... }) na liście todos (pkt 1).
+			// W metodzie map:
+			// 4. Stwórz element <li>, id `li-${i}`
+			// 5. Stwórz element <div>, id `div-${i}`
+			// 6. Stwórz element <span>, textContent ma zawierać todoText i category
+			// 7. Stwórz element <button>, id `edit-button-${i}`, class "edit-button", textContent "Edit"
+			// 8. Stwórz element <button>, id `remove-button-${i}`, class "remove-button", textContent "Remove"
+			// 9. Do diva (pkt 5) podepnij span (pkt 6), edit button (pkt 7), remove button (pkt 8)
+			// 10. Do li (pkt 4) podepnij diva (pkt 5)
+			// 11. Z metody map zwróc li (return)
+			// 12. console.log(listItems)
+			// treść zadania
+
+			// rozwiązanie mj
+			// 1. (wyciąga wszystko po prawej dwukropku)
+			const todos = Object.values(data);
+			console.log(todos);
+			// 2.
+			const h2 = document.createElement('h2');
+			h2.textContent = 'Add, remove and edit your todos';
+			// 3.
+			const listItems = todos.map((el, i) => {
+				// 4.
+				const li = document.createElement('li');
+				li.setAttribute('id', `li-${i}`);
+				// 5.
+				const div = document.createElement('div');
+				div.setAttribute('id', `div-${i}`);
+				// 6.
+				const span = document.createElement('span');
+				span.textContent = `${el.todoText} (${el.category})`;
+				// 7.
+				const editButton = document.createElement('button');
+				editButton.setAttribute('id', `edit-button-${i}`);
+				editButton.setAttribute('class', 'edit-button');
+				editButton.textContent = 'Edit';
+				// 8.
+				const removeButton = document.createElement('button');
+				removeButton.setAttribute('id', `remove-button-${i}`);
+				removeButton.setAttribute('class', 'remove-button');
+				removeButton.textContent = 'Remove';
+				// 9.
+				div.appendChild(span);
+				div.appendChild(editButton);
+				div.appendChild(removeButton);
+				li.appendChild(div);
+				return li;
+			});
+			console.log(listItems);
+			// rozwiązanie mj
+
+			// zad 3 - wyrenderowanie todoForm w else, jeśli mamy date
+			// 1. Stwórz element <ul>
+			// 2. Na zmiennej listItems wywołaj metode forEach. W s®odku forEacha podpinaj elementy do listy ul (pkt 1)
+			// 3. Wyczyść contentContainer
+			// 4. Do content containera podepnij h2, todoForm (cC.apc(renderTodoForm())), ul (pkt 1)
+
+			// rozwiązanie mj
+			const ul = document.createElement('ul');
+			listItems.forEach((el) => {
+				ul.appendChild(el);
+				contentContainer.innerHTML = '';
+				contentContainer.appendChild(h2);
+				contentContainer.appendChild(renderTodoForm());
+				contentContainer.appendChild(ul);
+			});
+			// rozwiązanie mj
 		}
 	});
 }

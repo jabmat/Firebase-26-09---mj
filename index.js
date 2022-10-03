@@ -51,7 +51,7 @@ onAuthStateChanged(auth, (user) => {
 
 // rendering the home page on initial page load
 renderHomePage();
-contentContainer.appendChild(renderTodoForm());
+// contentContainer.appendChild(renderTodoForm());
 // renderLoginForm();
 
 // sprawdzanie
