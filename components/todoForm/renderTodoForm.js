@@ -21,6 +21,59 @@
     <label for="radio-life">Life</label>
 </div> */
 
-// export default () {
+export default function () {
+	// 1.
+	const form = document.createElement('form');
+	form.setAttribute('id', 'todo-form');
 
-// }
+	// 2.
+	const input = document.createElement('input');
+	input.setAttribute('type', 'text');
+	input.setAttribute('id', 'todo-input');
+
+	// 3.
+	const fieldset = document.createElement('fieldset');
+	fieldset.setAttribute('id', 'todo-fieldset');
+
+	// 4.
+	const legend = document.createElement('legend');
+	legend.setAttribute('id', 'todo-legend');
+	legend.textContent = 'Select a category';
+
+	// 5.
+	const categories = ['work', 'life', 'sport', 'education'];
+	categories.forEach((category) => {
+		const div = document.createElement('div');
+		div.setAttribute('id', `div-${category}`);
+
+		const radioInput = document.createElement('input');
+		radioInput.setAttribute('type', 'radio');
+		radioInput.setAttribute('id', `radio-${category}`);
+		radioInput.setAttribute('name', 'category');
+		radioInput.setAttribute('value', category);
+
+		const label = document.createElement('label');
+		label.setAttribute('for', `radio-${category}`);
+		label.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+		div.appendChild(radioInput);
+		div.appendChild(label);
+		fieldset.appendChild(div);
+	});
+
+	// 6.
+	fieldset.appendChild(legend);
+
+	// 7.
+	const submitbutton = document.createElement('button');
+	submitbutton.setAttribute('type', 'submit');
+	submitbutton.setAttribute('id', 'todo-form-submit-button');
+	submitbutton.textContent = 'Add todo';
+
+	// 8.
+	form.appendChild(input);
+	form.appendChild(fieldset);
+	form.appendChild(submitbutton);
+
+	// 9.
+	return form;
+}

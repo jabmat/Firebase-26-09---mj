@@ -21,6 +21,9 @@ import {
 
 import { auth } from './firebaseConfig.js';
 
+// importy do todo form 29.09.2022
+import renderTodoForm from './components/todoForm/renderTodoForm.js';
+
 // console.log(content);
 
 // selecting the content container
@@ -47,16 +50,20 @@ onAuthStateChanged(auth, (user) => {
 
 // rendering the home page on initial page load
 renderHomePage();
+contentContainer.appendChild(renderTodoForm());
 // renderLoginForm();
 
 // sprawdzanie
 
-// podpięcie homePage do homeButtona
+// podpięcie homePage do homeButtona:
+// home button listener
 homeButton.addEventListener('click', renderHomePage);
 
 // podpięcie RegisterForm do loginButtona
 // loginButton.addEventListener('click', renderRegisterForm);
 // loginButton.addEventListener('click', renderLoginPage);
+
+// login button listener
 loginButton.addEventListener('click', () => {
 	const user = auth.currentUser;
 	if (user) {
