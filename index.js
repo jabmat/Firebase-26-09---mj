@@ -23,6 +23,7 @@ import { auth } from './firebaseConfig.js';
 
 // importy do todo form 29.09.2022
 import renderTodoForm from './components/todoForm/renderTodoForm.js';
+import renderTodoPage from './components/TodoPage/renderTodoPage.js';
 
 // console.log(content);
 
@@ -72,3 +73,5 @@ loginButton.addEventListener('click', () => {
 		renderLoginPage();
 	}
 });
+
+todosButton.addEventListener('click', renderTodoPage);

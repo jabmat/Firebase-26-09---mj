@@ -42,9 +42,45 @@ export default function () {
 			// 5.
 			contentContainer.appendChild(todoForm);
 
-			todoForm.addEventListener('submit', function (event) {
-				const input = document.getElementById('todo-input').value;
+			todoForm.addEventListener('submit', (event) => {
+				event.preventDefault();
+				const todoText = document.getElementById('todo-input').value;
+				// 1. Ściągnij odpowiednią kategorie z formularza (z radio inputów), wszystkie radio inputy mają atrybut name "category", istnieje selektor do wybierania elementów po atrybucie name. Zamień nodeListe na zwykły array. Do znalezienia inputa który jest zaznaczony użyj metody .find(). Input zaznaczony będzie miał własność checked, po niej szukaj właściwego inputu.
+				// 2. Z tego inputu ściągnij value.
+				// 3. Użyj funkcji push (z firebase'a) do wrzucenia danych do bazy.
+				// Zamiast funkcji ref() użyj zmiennej todoRef (wyżej w tym pliku)
+				// 4. Na funkcji push dodaj thena z console.log'iem "Pushed the data" i catcha z console.log'iem "failed to push"
+				// push(todoRef, {
+				//  todoText,
+				// category,
+				//}) tutaj then i catch
+				// 1.
+				const radioInputs = document.getElementsByName('category');
+				console.log(radioInputs);
+
+				const radioInputsA = Array.from(radioInputs);
+				console.log(radioInputsA);
+
+				const checked = radioInputsA.find((element) => element.checked);
+				console.log(checked);
+
+				// 2.
+				const foundVal = checked.value;
+				// console.log(checkedVal);
+
+				// 3.
+				push(todoRef, { todoText, foundVal })
+					.then(() => console.log('pushed the data'))
+					.catch((err) => console.log('failed to push'));
 			});
 		}
 	});
 }
+
+// {
+//     todos: {
+//         evruibveiub453452354: {
+//             todo1: {name: 'Wyjdź z psem', category: 'work'}
+//         }
+//     }
+// }
