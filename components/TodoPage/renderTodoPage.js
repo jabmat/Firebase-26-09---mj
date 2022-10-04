@@ -206,7 +206,42 @@ export default function () {
 			console.log(Object.keys(data));
 
 			// 2.
-
+			editButtons.forEach((el, i) => {
+				el.addEventListener('click', function () {
+					console.log(this);
+					// 4.
+					this.remove();
+					// 5.
+					const div = document.getElementById(`div-${i}`);
+					// 6.
+					const todoForm = renderTodoForm();
+					// 7.
+					todoForm.setAttribute('id', `todo-form-${i}`);
+					// 8.
+					div.appendChild(todoForm);
+					// 9.
+					todoForm.addEventListener('submit', function (event) {
+						event.preventDefault();
+						console.log(this);
+						console.log(this.childNodes);
+						// 10.
+						const todoText = this.childNodes[0].value;
+						console.log(todoText);
+						// 11.
+						const category = [...this.getElementsByTagName('input')]
+							.slice(1, 5)
+							.find((input) => input.checked).value;
+						console.log(category);
+						// 12.
+						const updates = {};
+						updates[`todos/${auth.currentUser.uid}/${Object.keys(data)[i]}`] = {
+							category,
+							todoText,
+						};
+						update(ref(database), updates);
+					});
+				});
+			});
 			// rozwiązanie zad 2 mj
 		}
 	});
