@@ -141,12 +141,73 @@ export default function () {
 			const ul = document.createElement('ul');
 			listItems.forEach((el) => {
 				ul.appendChild(el);
-				contentContainer.innerHTML = '';
-				contentContainer.appendChild(h2);
-				contentContainer.appendChild(renderTodoForm());
-				contentContainer.appendChild(ul);
+			});
+			contentContainer.innerHTML = '';
+			contentContainer.appendChild(h2);
+			contentContainer.appendChild(renderTodoForm());
+			contentContainer.appendChild(ul);
+			// rozwiązanie mj
+
+			// zadanie 1 04.10.2022
+			// 1. Wybierz todoForm przez getElementById, id "todo-form"
+			// 2. Na todoForm (pkt 1) nakładacie event listener na submit (będzie to 1:1 ten sam EL co wyżej)
+			// 3. Zrób refactor (przeanalizuj, uporządkuj, skróć i ulepsz kod) w pliku renderTodoPage.js
+
+			// rozwiązanie mj
+			// 1.
+			const todoForm = document.getElementById('todo-form');
+			// 2. (ten sam co w if !data)
+			todoForm.addEventListener('submit', (event) => {
+				event.preventDefault();
+				const todoText = document.getElementById('todo-input').value;
+
+				const radioInputs = document.getElementsByName('category');
+				console.log(radioInputs);
+
+				const radioInputsA = Array.from(radioInputs);
+				console.log(radioInputsA);
+
+				const checked = radioInputsA.find((element) => element.checked);
+				console.log(checked);
+
+				const category = checked.value;
+
+				push(todoRef, { todoText, category })
+					.then(() => console.log('pushed the data'))
+					.catch((err) => console.log('failed to push'));
 			});
 			// rozwiązanie mj
+
+			// zadanie 2 04.10.2022
+			// EDIT BUTTON
+			// 1. Wybierz wszystkie edit buttony (getElementsByClassName, "edit-button") i zamień na zwykły array (zapisujecie do zmiennej)
+			// 2. Na liście edit buttonów (pkt 1) wywołaj metode forEach (parametry: el, i)
+			// 3. Na el (parametr forEach) nakładacie event listener na click (w środku zwykła funkcja, nie strzałkowa!!!)
+			// W event listenerze:
+			// 4. Usuń z DOMu element który został kliknięty (w środku EL sprawdź co to this, sprawdź .remove())
+			// 5. Wybierz diva (getElementById, `div-${i}`)
+			// 6. Wywołaj funkcję renderTodoForm i zapisz wynik do zmiennej
+			// 7. todoForm'owi (pkt 6) nadaj id `todo-form-${i}`
+			// 8. Do diva (pkt 5) podepnij todoForm (pkt 6)
+			// 9. Na todoForm (pkt 6) nadaj event listener (submit)
+			// W EL:
+			// 10. Ściągnij todoText (this, childNodes)
+			// 11. Ściągnij kategorię (getElementsByTagName, można wywołać na this)
+			// 12. Stwórz obiekt updates (const updates = {})
+			// 13. Do obiektu updates wrzuć właśność "todos/*uid usera*/*id todosa*": { category, todoText }
+			// 14. Wywołaj funkcję update z FB
+
+			// rozwiązanie zad 2 mj
+			// 1.
+			const editButtons = [...document.getElementsByClassName('edit-button')];
+			console.log(editButtons);
+
+			// id todo's:
+			console.log(Object.keys(data));
+
+			// 2.
+
+			// rozwiązanie zad 2 mj
 		}
 	});
 }
