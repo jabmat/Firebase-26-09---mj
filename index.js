@@ -24,7 +24,7 @@ import { auth } from './firebaseConfig.js';
 // importy do todo form 29.09.2022
 import renderTodoForm from './components/todoForm/renderTodoForm.js';
 import renderTodoPage from './components/TodoPage/renderTodoPage.js';
-
+import renderTeamPage from './components/TeamPage/renderTeamPage.js';
 // console.log(content);
 
 // selecting the content container
@@ -75,3 +75,5 @@ loginButton.addEventListener('click', () => {
 });
 
 todosButton.addEventListener('click', renderTodoPage);
+
+publicButton.addEventListener('click', renderTeamPage);
