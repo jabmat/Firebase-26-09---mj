@@ -96,7 +96,7 @@ export default function () {
 			// rozwiązanie mj
 			// 1. (wyciąga wszystko po prawej dwukropku)
 			const todos = Object.values(data);
-			console.log(todos);
+			console.log('todos (object.values z data):', todos);
 			// 2.
 			const h2 = document.createElement('h2');
 			h2.textContent = 'Add, remove and edit your todos';
@@ -128,7 +128,7 @@ export default function () {
 				li.appendChild(div);
 				return li;
 			});
-			console.log(listItems);
+			console.log('listItems', listItems);
 			// rozwiązanie mj
 
 			// zad 3 - wyrenderowanie todoForm w else, jeśli mamy date
@@ -200,16 +200,19 @@ export default function () {
 			// rozwiązanie zad 2 mj
 			// 1.
 			const editButtons = [...document.getElementsByClassName('edit-button')];
-			console.log(editButtons);
+			console.log(
+				'editButtons (all from document with class name edit-button):',
+				editButtons
+			);
 
 			// id todo's:
-			console.log(Object.keys(data));
+			// console.log(Object.keys(data));
 
 			// 2.
 			editButtons.forEach((el, i) => {
 				el.addEventListener('click', function () {
-					console.log(this);
-					// 4.
+					// console.log('this is here: ', this);
+					// 4. usunięcie to co klikamy (this)
 					this.remove();
 					// 5.
 					const div = document.getElementById(`div-${i}`);
@@ -222,16 +225,16 @@ export default function () {
 					// 9.
 					todoForm.addEventListener('submit', function (event) {
 						event.preventDefault();
-						console.log(this);
-						console.log(this.childNodes);
+						console.log('this is this: ', this);
+						console.log('this.childNodes:', this.childNodes);
 						// 10.
 						const todoText = this.childNodes[0].value;
-						console.log(todoText);
+						console.log('todoTest: ', todoText);
 						// 11.
 						const category = [...this.getElementsByTagName('input')]
 							.slice(1, 5)
 							.find((input) => input.checked).value;
-						console.log(category);
+						console.log('category: ', category);
 						// 12.
 						const updates = {};
 						updates[`todos/${auth.currentUser.uid}/${Object.keys(data)[i]}`] = {
@@ -243,6 +246,59 @@ export default function () {
 				});
 			});
 			// rozwiązanie zad 2 mj
+
+			// zad. 1 05.10.2022
+			// 1. Wybranie remove buttonów (analogicznie do edit buttonow)
+			// 2. Na liście z pkt 1 wywołaj metode forEach (el, i)
+			// W forEach:
+			// 3. Na el (parametr forEach'a) nakładacie EL na click
+			// W środku EL:
+			// 4. Usuwacie całe <li> do którego należał kliknięty remove button (this, parentElement * 2, .remove())
+			// 5. Wywołanie metody remove (z firebase), usuń nią klikniętego todosa
+			// rozwiązanie mj
+			// ref tip
+			// ref(database, 'todos/*uid usera*/*id todosa*');
+			// ref tip
+
+			// 1.
+			const removeButtons = [
+				...document.getElementsByClassName('remove-button'),
+			];
+			console.log(
+				'removeButtons (all from document with class name remove-button):',
+				removeButtons
+			);
+			// 2.
+			removeButtons.forEach((el, i) => {
+				// 3.
+				el.addEventListener('click', function () {
+					// 4.
+					this.parentElement.parentElement.remove();
+					// 5.
+					// remove fb - wersja 1 - ok
+					remove(
+						ref(
+							database,
+							`todos/${auth.currentUser.uid}/${Object.keys(data)[i]}`
+						)
+					);
+					// remove fb - wersja 1 - ok
+
+					// remove fb - wersja 2
+					// const removes = {};
+					// removes[`todos/${auth.currentUser.uid}/${Object.keys(data)[i]}`] = {
+					// 	category,
+					// 	todoText,
+					// };
+					// remove(ref(database), removes);
+					// remove fb - wersja 2
+				});
+			});
+			// rozwiązanie mj
+
+			// zad. 2 05.10.2022?
+			// rozwiązanie mj
+			// rozwiązanie mj
 		}
 	});
 }
