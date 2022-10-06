@@ -13,6 +13,9 @@ import { getDatabase } from 'https://www.gstatic.com/firebasejs/9.8.2/firebase-d
 // import do TeamPage 05.10.2022
 import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js';
 
+// import do FilePage 06.10.2022
+import { getStorage } from 'https://www.gstatic.com/firebasejs/9.8.2/firebase-storage.js';
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -33,3 +36,4 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const database = getDatabase(app);
 export const firestore = getFirestore(app);
+export const storage = getStorage(app);

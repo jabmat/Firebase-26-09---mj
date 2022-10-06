@@ -25,6 +25,8 @@ import { auth } from './firebaseConfig.js';
 import renderTodoForm from './components/todoForm/renderTodoForm.js';
 import renderTodoPage from './components/TodoPage/renderTodoPage.js';
 import renderTeamPage from './components/TeamPage/renderTeamPage.js';
+// import do FilePage 06.10.2022
+import renderFilePage from './components/FilePage/renderFilePage.js';
 // console.log(content);
 
 // selecting the content container
@@ -77,3 +79,6 @@ loginButton.addEventListener('click', () => {
 todosButton.addEventListener('click', renderTodoPage);
 
 publicButton.addEventListener('click', renderTeamPage);
+
+// podpięcie strony FilePage do About Us
+aboutButton.addEventListener('click', renderFilePage);
